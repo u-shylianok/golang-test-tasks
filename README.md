@@ -1,5 +1,5 @@
 # golang-test-tasks
-Тестовое задание на Golang Developer.
+Тестовое задание на Golang Developer
 
 ### Процесс выполнения
 
