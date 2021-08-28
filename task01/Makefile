@@ -4,7 +4,7 @@ build:
 	go build -o bin/task01 cmd/*.go
 
 start:
-	go build -o bin/task01 cmd/*.go
+	make build
 	./bin/task01
 
 run:
