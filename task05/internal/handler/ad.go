@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"strconv"
+	"unicode/utf8"
 
 	"github.com/gin-gonic/gin"
 	"github.com/u-shylianok/golang-test-tasks/task05/internal/model"
@@ -16,12 +17,12 @@ func (h *Handler) createAd(c *gin.Context) {
 		return
 	}
 
-	if len(input.Name) > 200 {
+	if utf8.RuneCountInString(input.Name) > 200 {
 		newErrorResponse(c, http.StatusBadRequest, "name should be no more than 200 symbols")
 		return
 	}
 
-	if len(input.Description) > 1000 {
+	if utf8.RuneCountInString(input.Description) > 1000 {
 		newErrorResponse(c, http.StatusBadRequest, "description should be no more than 1000 symbols")
 		return
 	}
