@@ -16,6 +16,16 @@ func (h *Handler) createAd(c *gin.Context) {
 		return
 	}
 
+	if len(input.Name) > 200 {
+		newErrorResponse(c, http.StatusBadRequest, "name should be no more than 200 symbols")
+		return
+	}
+
+	if len(input.Description) > 1000 {
+		newErrorResponse(c, http.StatusBadRequest, "description should be no more than 1000 symbols")
+		return
+	}
+
 	id, err := h.services.Ad.Create(input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
