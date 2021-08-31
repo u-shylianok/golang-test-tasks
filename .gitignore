@@ -1,5 +1,6 @@
 # Binaries for programs and plugins
 **/bin
+task05/build/app/task05
 *.exe
 *.exe~
 *.dll
