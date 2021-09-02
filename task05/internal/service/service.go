@@ -7,7 +7,7 @@ import (
 
 type Ad interface {
 	Create(ad model.Ad) (int, error)
-	List() ([]model.Ad, error)
+	List(sortBy, order string) ([]model.Ad, error)
 	Get(adId int, fields []string) (model.Ad, error)
 }
 

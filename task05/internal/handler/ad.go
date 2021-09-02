@@ -50,7 +50,19 @@ func (h *Handler) createAd(c *gin.Context) {
 
 func (h *Handler) listAds(c *gin.Context) {
 
-	ads, err := h.services.Ad.List()
+	var order, sortBy string
+
+	sortBy = c.Query("sort_by")
+	if sortBy == "price" || sortBy == "date" {
+		order = c.Query("order")
+		if order != "asc" && order != "dsc" {
+			order = "asc"
+		}
+	} else {
+		sortBy = ""
+	}
+
+	ads, err := h.services.Ad.List(sortBy, order)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

@@ -54,10 +54,19 @@ func (r *AdPostgres) Create(ad model.Ad) (int, error) {
 	return adId, tx.Commit()
 }
 
-func (r *AdPostgres) List() ([]model.Ad, error) {
+func (r *AdPostgres) List(sortBy, order string) ([]model.Ad, error) {
 	var ads []model.Ad
 
-	query := "SELECT * FROM ads"
+	var addQuerySortBy, addQueryOrder string
+	if sortBy == "price" || sortBy == "date" {
+		addQuerySortBy = " ORDER BY ads." + sortBy
+
+		if order == "dsc" {
+			addQueryOrder = " DESC"
+		}
+	}
+
+	query := fmt.Sprintf("SELECT * FROM ads%s%s", addQuerySortBy, addQueryOrder)
 
 	if err := r.db.Select(&ads, query); err != nil {
 		return nil, err

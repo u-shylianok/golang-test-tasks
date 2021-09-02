@@ -14,6 +14,7 @@ down:
 	docker-compose down
 
 clean:
+	docker stop u-shylianok-task05-app u-shylianok-task05-pg
 	docker rm u-shylianok-task05-app u-shylianok-task05-pg
 	rm build/app/task05
 

@@ -17,8 +17,8 @@ func (s *AdService) Create(ad model.Ad) (int, error) {
 	return s.repo.Create(ad)
 }
 
-func (s *AdService) List() ([]model.Ad, error) {
-	return s.repo.List()
+func (s *AdService) List(sortBy, order string) ([]model.Ad, error) {
+	return s.repo.List(sortBy, order)
 }
 
 func (s *AdService) Get(adId int, fields []string) (model.Ad, error) {
