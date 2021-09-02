@@ -5,6 +5,8 @@ import (
 	"github.com/u-shylianok/golang-test-tasks/task05/internal/repository"
 )
 
+//go:generate mockgen -source=service.go -destination=mocks/mock.go
+
 type Ad interface {
 	Create(ad model.Ad) (int, error)
 	List(sortBy, order string) ([]model.Ad, error)

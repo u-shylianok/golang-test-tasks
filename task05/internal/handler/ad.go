@@ -13,7 +13,7 @@ func (h *Handler) createAd(c *gin.Context) {
 
 	var input model.Ad
 	if err := c.BindJSON(&input); err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		newErrorResponse(c, http.StatusBadRequest, "invalid input body")
 		return
 	}
 
@@ -22,7 +22,7 @@ func (h *Handler) createAd(c *gin.Context) {
 		return
 	}
 
-	if utf8.RuneCountInString(*input.Description) > 1000 {
+	if input.Description == nil || utf8.RuneCountInString(*input.Description) > 1000 {
 		newErrorResponse(c, http.StatusBadRequest, "description should be no more than 1000 symbols")
 		return
 	}
