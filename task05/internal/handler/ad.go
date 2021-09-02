@@ -22,8 +22,18 @@ func (h *Handler) createAd(c *gin.Context) {
 		return
 	}
 
-	if utf8.RuneCountInString(input.Description) > 1000 {
+	if utf8.RuneCountInString(*input.Description) > 1000 {
 		newErrorResponse(c, http.StatusBadRequest, "description should be no more than 1000 symbols")
+		return
+	}
+
+	if input.Photos == nil || len(*input.Photos) < 1 {
+		newErrorResponse(c, http.StatusBadRequest, "must be at least 1 photo")
+		return
+	}
+
+	if len(*input.Photos) > 3 {
+		newErrorResponse(c, http.StatusBadRequest, "should be no more than 3 photos")
 		return
 	}
 
@@ -57,7 +67,9 @@ func (h *Handler) getAd(c *gin.Context) {
 		return
 	}
 
-	item, err := h.services.Ad.Get(adId)
+	fields := c.Request.URL.Query()["fields"]
+
+	item, err := h.services.Ad.Get(adId, fields)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

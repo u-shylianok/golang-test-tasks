@@ -8,7 +8,7 @@ import (
 type Ad interface {
 	Create(ad model.Ad) (int, error)
 	List() ([]model.Ad, error)
-	Get(adId int) (model.Ad, error)
+	Get(adId int, fields []string) (model.Ad, error)
 }
 
 type Service struct {

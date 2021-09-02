@@ -21,6 +21,6 @@ func (s *AdService) List() ([]model.Ad, error) {
 	return s.repo.List()
 }
 
-func (s *AdService) Get(adId int) (model.Ad, error) {
-	return s.repo.Get(adId)
+func (s *AdService) Get(adId int, fields []string) (model.Ad, error) {
+	return s.repo.Get(adId, fields)
 }

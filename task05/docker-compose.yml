@@ -36,7 +36,6 @@ services:
       - DB_DBNAME=postgres
       - DB_SSL=disable
     depends_on:
-      u-shylianok-task05-pg:
-        condition: service_healthy
+      - u-shylianok-task05-pg
 
     container_name: u-shylianok-task05-app

@@ -10,10 +10,17 @@ CREATE TABLE ads
 CREATE TABLE photos
 (
     id      SERIAL PRIMARY KEY,
-    ad_id   INTEGER NOT NULL,
-    is_main BOOLEAN NOT NULL,
-    link    TEXT NOT NULL,
-    FOREIGN KEY (ad_id) REFERENCES ads(id)
+    link    TEXT NOT NULL
+);
+
+CREATE TABLE ads_photos
+(
+    ad_id       INTEGER NOT NULL,
+    photo_id    INTEGER NOT NULL,
+    is_main     BOOLEAN NOT NULL,
+    PRIMARY KEY (ad_id, photo_id),
+    FOREIGN KEY (ad_id) REFERENCES ads(id),
+    FOREIGN KEY (photo_id) REFERENCES photos(id)
 );
 
 -- Example data
@@ -24,36 +31,58 @@ INSERT INTO ads(name, date, price, description) VALUES
     ('Билет в казино', '2021-08-30 19:13:25-07', 1, 'Вы обязательно победите!'),
     ('PC', '2021-08-30 19:14:25-07', 1000, 'Точно игровой (с) консультант'),
     ('Машина 2', '2021-08-30 19:15:25-07', 12000, 'Необычная машина'),
-    ('Хлеб', '2021-08-30 19:16:25-07', 1, 'Мягкий, вкусный'),
+    ('Хлеб', '2021-08-30 19:16:25-07', 1, NULL),
     ('Мышь', '2021-08-30 19:17:25-07', 50, 'Живая или компьютерная?');
 
-INSERT INTO photos(ad_id, is_main, link) VALUES
-    (1, TRUE, 'https://picsum.photos/id/101/200/200'),
-    (1, FALSE, 'https://picsum.photos/id/102/200/200'),
-    (1, FALSE, 'https://picsum.photos/id/103/200/200'),
-    (1, FALSE, 'https://picsum.photos/id/104/200/200'),
-    (2, TRUE, 'https://picsum.photos/id/201/200/200'),
-    (2, FALSE, 'https://picsum.photos/id/202/200/200'),
-    (2, FALSE, 'https://picsum.photos/id/203/200/200'),
-    (2, FALSE, 'https://picsum.photos/id/204/200/200'),
-    (2, FALSE, 'https://picsum.photos/id/205/200/200'),
-    (3, FALSE, 'https://picsum.photos/id/301/200/200'),
-    (3, TRUE, 'https://picsum.photos/id/302/200/200'),
-    (3, FALSE, 'https://picsum.photos/id/303/200/200'),
-    (4, FALSE, 'https://picsum.photos/id/401/200/200'),
-    (4, TRUE, 'https://picsum.photos/id/402/200/200'),
-    (4, FALSE, 'https://picsum.photos/id/403/200/200'),
-    (5, FALSE, 'https://picsum.photos/id/501/200/200'),
-    (5, FALSE, 'https://picsum.photos/id/502/200/200'),
-    (5, TRUE, 'https://picsum.photos/id/503/200/200'),
-    (5, FALSE, 'https://picsum.photos/id/504/200/200'),
-    (6, TRUE, 'https://picsum.photos/id/601/200/200'),
-    (6, FALSE, 'https://picsum.photos/id/602/200/200'),
-    (6, FALSE, 'https://picsum.photos/id/603/200/200'),
-    (6, FALSE, 'https://picsum.photos/id/604/200/200'),
-    (7, TRUE, 'https://picsum.photos/id/701/200/200'),
-    (7, FALSE, 'https://picsum.photos/id/702/200/200'),
-    (7, FALSE, 'https://picsum.photos/id/703/200/200'),
-    (8, FALSE, 'https://picsum.photos/id/801/200/200'),
-    (8, FALSE, 'https://picsum.photos/id/802/200/200'),
-    (8, TRUE, 'https://picsum.photos/id/803/200/200');
+INSERT INTO photos(link) VALUES
+    ('https://picsum.photos/id/101/200/200'),
+    ('https://picsum.photos/id/102/200/200'),
+    ('https://picsum.photos/id/103/200/200'),
+    ('https://picsum.photos/id/201/200/200'),
+    ('https://picsum.photos/id/202/200/200'),
+    ('https://picsum.photos/id/203/200/200'),
+    ('https://picsum.photos/id/301/200/200'),
+    ('https://picsum.photos/id/302/200/200'),
+    ('https://picsum.photos/id/303/200/200'),
+    ('https://picsum.photos/id/401/200/200'),
+    ('https://picsum.photos/id/402/200/200'),
+    ('https://picsum.photos/id/403/200/200'),
+    ('https://picsum.photos/id/501/200/200'),
+    ('https://picsum.photos/id/502/200/200'),
+    ('https://picsum.photos/id/503/200/200'),
+    ('https://picsum.photos/id/601/200/200'),
+    ('https://picsum.photos/id/602/200/200'),
+    ('https://picsum.photos/id/603/200/200'),
+    ('https://picsum.photos/id/701/200/200'),
+    ('https://picsum.photos/id/702/200/200'),
+    ('https://picsum.photos/id/703/200/200'),
+    ('https://picsum.photos/id/801/200/200'),
+    ('https://picsum.photos/id/802/200/200'),
+    ('https://picsum.photos/id/803/200/200');
+
+
+INSERT INTO ads_photos(ad_id, photo_id, is_main) VALUES
+    (1, 1, TRUE),
+    (1, 2, FALSE),
+    (1, 3, FALSE),
+    (2, 4, FALSE),
+    (2, 5, TRUE),
+    (2, 6, FALSE),
+    (3, 7, FALSE),
+    (3, 8, FALSE),
+    (3, 9, TRUE),
+    (4, 10, FALSE),
+    (4, 11, TRUE),
+    (4, 12, FALSE),
+    (5, 13, TRUE),
+    (5, 14, FALSE),
+    (5, 15, FALSE),
+    (6, 16, TRUE),
+    (6, 17, FALSE),
+    (6, 18, FALSE),
+    (7, 19, FALSE),
+    (7, 20, TRUE),
+    (7, 21, FALSE),
+    (8, 22, FALSE),
+    (8, 23, FALSE),
+    (8, 24, TRUE);
