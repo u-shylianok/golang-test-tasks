@@ -14,6 +14,7 @@ func NewHandler(services *service.Service) *Handler {
 }
 
 func (h *Handler) InitRoutes() *gin.Engine {
+	// gin.SetMode(gin.ReleaseMode) // set if release
 	router := gin.New()
 
 	ads := router.Group("/ads")
